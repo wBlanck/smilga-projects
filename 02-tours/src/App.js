@@ -29,8 +29,23 @@ function App() {
     fetchTours();
   }, []);
 
+  if (tours.length === 0) {
+    return (
+      <main>
+        <div className="title">
+          <h2>No Tours Left</h2>
+          <button className="btn">refresh</button>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main>
+      <div className="title">
+        <h2>our tours</h2>
+        <div className="underline"></div>
+      </div>
       <Tours tours={tours} removeTour={removeTour} />
     </main>
   );
