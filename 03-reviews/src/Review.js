@@ -25,6 +25,7 @@ const Review = () => {
       setPerson((prev) => prev + 1);
     }
   };
+
   const prevPerson = () => {
     if (person === 0) {
       setPerson(people.length - 1);
