@@ -18,6 +18,21 @@ const Review = () => {
     setPerson(randomNumb);
   };
 
+  const nextPerson = () => {
+    if (person === people.length - 1) {
+      setPerson(0);
+    } else {
+      setPerson((prev) => prev + 1);
+    }
+  };
+  const prevPerson = () => {
+    if (person === 0) {
+      setPerson(people.length - 1);
+    } else {
+      setPerson((prev) => prev - 1);
+    }
+  };
+
   return (
     <section className="container">
       <div className="title">
@@ -35,10 +50,14 @@ const Review = () => {
         <p className="job">{people[person].job}</p>
         <p className="info">{people[person].text}</p>
         <div className="button-container">
-          <button className="prev-btn">
+          <button className="prev-btn" onClick={() => prevPerson()}>
             <FaChevronLeft />
           </button>
-          <button className="next-btn">
+          <button
+            className="next-btn"
+            onClick={() => {
+              nextPerson();
+            }}>
             <FaChevronRight />
           </button>
         </div>
