@@ -7,7 +7,15 @@ const Review = () => {
   const [person, setPerson] = useState(0);
 
   const randomPerson = () => {
-    setPerson(Math.floor(Math.random() * people.length));
+    let randomNumb = Math.floor(Math.random() * people.length);
+    console.log(randomNumb + " " + person);
+
+    if (randomNumb === person && person === 0) {
+      randomNumb = person + 1;
+    } else if (randomNumb === person && person !== 0) {
+      randomNumb = person - 1;
+    }
+    setPerson(randomNumb);
   };
 
   return (
@@ -18,14 +26,14 @@ const Review = () => {
       </div>
       <article className="review">
         <div className="img-container">
-          <img src="" alt="" className="person-img" />
+          <img src={people[person].image} alt="" className="person-img" />
           <span className="quote-icon">
             <FaQuoteRight />
           </span>
         </div>
         <h4 className="author">{people[person].name}</h4>
-        <p className="job"></p>
-        <p className="info"></p>
+        <p className="job">{people[person].job}</p>
+        <p className="info">{people[person].text}</p>
         <div className="button-container">
           <button className="prev-btn">
             <FaChevronLeft />
