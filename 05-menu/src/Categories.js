@@ -1,12 +1,17 @@
 import React from "react";
 
-const Categories = ({ categories }) => {
+const Categories = ({ categories, select }) => {
   return (
     <div className="btn-container">
-      <button className="filter-btn">all</button>
+      <button className="filter-btn" onClick={() => select("all")}>
+        all
+      </button>
       {categories.map((category, i) => {
         return (
-          <button key={i} className="filter-btn">
+          <button
+            key={category}
+            className="filter-btn"
+            onClick={() => select(category)}>
             {category}
           </button>
         );

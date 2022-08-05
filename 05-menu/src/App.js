@@ -22,6 +22,10 @@ function App() {
     setupCategories();
   }, []);
 
+  const selectCategory = (category) => {
+    console.log(category);
+  };
+
   return (
     <main>
       <section className="menu section">
@@ -29,7 +33,7 @@ function App() {
           <h2>our menu</h2>
           <div className="underline"></div>
         </div>
-        <Categories categories={categories} />
+        <Categories categories={categories} select={selectCategory} />
         <div className="section-center"></div>
       </section>
     </main>
