@@ -24,6 +24,15 @@ function App() {
 
   const selectCategory = (category) => {
     console.log(category);
+    if (category === "all") {
+      setMenu(items);
+      console.log(menu);
+      return;
+    }
+    const updatedMenu = items.filter((meal) => {
+      return meal.category === category;
+    });
+    setMenu(updatedMenu);
   };
 
   return (
@@ -33,8 +42,22 @@ function App() {
           <h2>our menu</h2>
           <div className="underline"></div>
         </div>
-        <Categories categories={categories} select={selectCategory} />
-        <div className="section-center"></div>
+        <div className="btn-container">
+          <button className="filter-btn" onClick={() => selectCategory("all")}>
+            all
+          </button>
+          {categories.map((category, i) => (
+            <button
+              key={i}
+              className="filter-btn"
+              onClick={() => selectCategory(category)}>
+              {category}
+            </button>
+          ))}
+        </div>
+        <div className="section-center">
+          <Menu items={menu} />
+        </div>
       </section>
     </main>
   );
