@@ -4,32 +4,50 @@ import SingleColor from "./SingleColor";
 import Values from "values.js";
 
 function App() {
-  const [userColor, setUserColor] = useState("#fff");
+  const [userColor, setUserColor] = useState("");
+  const [listOfColors, setListOfColors] = useState(
+    new Values("#f12312").all(10)
+  );
 
-  const color = new Values(userColor),
-    { log } = console;
-
-  log(color.shades());
-  log(color.tints());
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    /* error when using color words like "green" "red"  */
+    try {
+      const color = new Values(userColor);
+      console.log(userColor);
+      setListOfColors(color);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <section className="container">
         <h3>color generator</h3>
-        <form>
-          <input type="text" className="null" placeholder="green" value />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className="null"
+            placeholder="#f12312"
+            value={userColor}
+            onChange={(e) => setUserColor(e.target.value)}
+          />
           <button type="submit" className="btn">
             submit
           </button>
         </form>
       </section>
       <section className="colors">
-        <article
-          className="color false"
-          style={{ backgroundColor: "rgb(255,255,2)" }}>
-          <p className="percent-value"></p>
-          <p className="color-value"></p>
-        </article>
+        {listOfColors.map((color) => {
+          if (color.type === "tint") {
+            return <SingleColor light={true} {...color} />;
+          }
+
+          if (color.type === "shade") {
+            return <SingleColor light={false} {...color} />;
+          }
+        })}
       </section>
     </>
   );
