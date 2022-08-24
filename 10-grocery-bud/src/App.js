@@ -1,8 +1,17 @@
+import { v4 as uuid } from "uuid";
+
 import React, { useState, useEffect } from "react";
 import List from "./List";
 import Alert from "./Alert";
 
 function App() {
+  const [items, setItems] = useState([
+    {
+      id: 0,
+      item: "",
+    },
+  ]);
+
   // add items
   // remove items
   // edit items
