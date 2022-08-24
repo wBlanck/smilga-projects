@@ -3,6 +3,13 @@ import List from "./List";
 import Alert from "./Alert";
 
 function App() {
+  // add items
+  // remove items
+  // edit items
+  // clear list
+  // display alerts based on actions made
+  // add to localStorage
+
   return (
     <section className="section-center">
       <form className="grocery-form">
