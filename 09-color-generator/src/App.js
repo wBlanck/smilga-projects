@@ -11,11 +11,9 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    /* error when using color words like "green" "red"  */
     try {
       const color = new Values(userColor);
-      console.log(userColor);
-      setListOfColors(color);
+      setListOfColors(color.all(10));
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +27,7 @@ function App() {
           <input
             type="text"
             className="null"
-            placeholder="#f12312"
+            placeholder="#fff"
             value={userColor}
             onChange={(e) => setUserColor(e.target.value)}
           />
@@ -40,13 +38,7 @@ function App() {
       </section>
       <section className="colors">
         {listOfColors.map((color) => {
-          if (color.type === "tint") {
-            return <SingleColor light={true} {...color} />;
-          }
-
-          if (color.type === "shade") {
-            return <SingleColor light={false} {...color} />;
-          }
+          return <SingleColor light={true} hexColor={color.hex} {...color} />;
         })}
       </section>
     </>

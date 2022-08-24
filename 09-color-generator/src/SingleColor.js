@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import rgbToHex from "./utils";
 
-const SingleColor = ({ type, rgb, light, weight }) => {
-  const [hexColor, setHexColor] = useState("");
-
-  useEffect(() => {
-    setHexColor(rgbToHex(rgb[0], rgb[1], rgb[2]));
-  }, []);
-
+const SingleColor = ({ weight, light, hexColor, index, rgb }) => {
+  const hexValue = `#${hexColor}`;
   return (
     <article
-      className={`color ${light ? "color-light" : "false"}`}
-      style={{ backgroundColor: hexColor }}>
-      <p className="percent-value"></p>
-      <p className="color-value"></p>
+      className={`color ${index > 10 && "color-light"}`}
+      style={{ backgroundColor: hexValue }}
+      onClick={() => {
+        navigator.clipboard.writeText(hexValue);
+      }}>
+      <p className="percent-value" style={{ color: hexValue }}>
+        {weight}%
+      </p>
+      <p className="color-value">{hexValue}</p>
     </article>
   );
 };
