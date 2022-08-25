@@ -6,17 +6,25 @@ import Alert from "./Alert";
 
 function App() {
   const [userInput, setUserInput] = useState("");
-  const [items, setItems] = useState([{ id: "idKey", itemName: "userInput" }]);
+  const [items, setItems] = useState([]);
 
-  // add items
+  // add items ✅
   // remove items
   // edit items
   // clear list
   // display alerts based on actions made
   // add to localStorage
 
+  const removeItem = (itemId) => {
+    console.log(itemId);
+
+    const updatedItems = items.filter((item) => item.id !== itemId);
+    setItems(updatedItems);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setItems((prev) => {
       const idKey = uuid();
 
@@ -43,7 +51,7 @@ function App() {
           </button>
         </div>
       </form>
-      {items && <List items={items} />}
+      {items && <List items={items} removeItem={removeItem} />}
     </section>
   );
 }
