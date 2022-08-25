@@ -12,7 +12,7 @@ const List = ({ items, removeItem, edit, clear }) => {
                 <button
                   type="button"
                   className="edit-btn"
-                  onClick={() => edit(item.itemName)}>
+                  onClick={() => edit(item)}>
                   <FaEdit />
                 </button>
                 <button

@@ -18,7 +18,7 @@ function App() {
   // remove items ✅
   // edit items
   // clear list ✅
-  // display alerts based on actions made
+  // display alerts based on actions made ✅
   // add to localStorage
 
   const removeItem = (itemId) => {
@@ -35,11 +35,10 @@ function App() {
     );
   };
 
-  const editItem = (itemId) => {
+  const editItem = (item) => {
     setEdit(true);
-    setUserInput(itemId);
-    let updatedItem = items.filter((item) => item.id !== itemId);
-    updatedItem[0].itemName = userInput;
+    setUserInput(item.itemName);
+    console.log(item);
   };
 
   const clearItems = () => {
@@ -48,6 +47,7 @@ function App() {
       (prev) =>
         (prev = { ...prev, type: "danger", msg: "empty list", showAlert: true })
     );
+    setUserInput("");
   };
 
   const removeAlert = () => {
@@ -58,6 +58,7 @@ function App() {
     e.preventDefault();
 
     if (!edit) {
+      console.log("testing");
       const idKey = uuid();
 
       const newItems = [...items];
@@ -77,6 +78,17 @@ function App() {
     }
 
     if (edit) {
+      console.log("edited");
+
+      setAlert(
+        (prev) =>
+          (prev = {
+            ...prev,
+            type: "success",
+            showAlert: true,
+            msg: "Item Updated",
+          })
+      );
     }
   };
 
@@ -102,7 +114,7 @@ function App() {
             onChange={(e) => setUserInput(e.target.value)}
           />
           <button type="submit" className="submit-btn">
-            submit
+            {edit ? "Edit" : "Submit"}
           </button>
         </div>
       </form>
