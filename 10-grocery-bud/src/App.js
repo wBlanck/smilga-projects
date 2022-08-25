@@ -7,31 +7,46 @@ import Alert from "./Alert";
 function App() {
   const [userInput, setUserInput] = useState("");
   const [items, setItems] = useState([]);
+  const [edit, setEdit] = useState(false);
 
   // add items ✅
-  // remove items
+  // remove items ✅
   // edit items
   // clear list
   // display alerts based on actions made
   // add to localStorage
 
   const removeItem = (itemId) => {
-    console.log(itemId);
-
     const updatedItems = items.filter((item) => item.id !== itemId);
     setItems(updatedItems);
+  };
+
+  const editItem = (itemId) => {
+    setEdit(true);
+    setUserInput(itemId);
+    let updatedItem = items.filter((item) => item.id !== itemId);
+    updatedItem[0].itemName = userInput;
+  };
+
+  const clearItems = () => {
+    setItems([]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setItems((prev) => {
+    if (!edit) {
       const idKey = uuid();
 
-      const newItems = [...prev];
+      const newItems = [...items];
       newItems.push({ id: idKey, itemName: userInput });
-      return newItems;
-    });
+
+      setItems(newItems);
+      setUserInput("");
+    }
+
+    if (edit) {
+    }
   };
 
   return (
@@ -51,7 +66,14 @@ function App() {
           </button>
         </div>
       </form>
-      {items && <List items={items} removeItem={removeItem} />}
+      {items.length > 0 && (
+        <List
+          items={items}
+          removeItem={removeItem}
+          edit={editItem}
+          clear={clearItems}
+        />
+      )}
     </section>
   );
 }
