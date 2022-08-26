@@ -49,6 +49,7 @@ function App() {
         (prev = { ...prev, type: "danger", msg: "empty list", showAlert: true })
     );
     setUserInput("");
+    setIsEditing(false);
   };
 
   const removeAlert = () => {
