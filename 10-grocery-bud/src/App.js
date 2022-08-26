@@ -73,7 +73,6 @@ function App() {
     }
 
     if (!isEditing) {
-      console.log("testing");
       const idKey = uuid();
 
       const newItems = [...items];
@@ -93,8 +92,6 @@ function App() {
     }
 
     if (isEditing && userInput) {
-      console.log("edited");
-
       setItems(
         items.map((item) => {
           if (item.id === editId) {
