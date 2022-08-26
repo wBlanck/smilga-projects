@@ -17,7 +17,7 @@ function App() {
 
   // add items ✅
   // remove items ✅
-  // edit items
+  // edit items ✅
   // clear list ✅
   // display alerts based on actions made ✅
   // add to localStorage
@@ -53,7 +53,6 @@ function App() {
 
   const removeAlert = () => {
     setAlert((prev) => (prev = { ...prev, showAlert: false }));
-    setUserInput("");
   };
 
   const handleSubmit = (e) => {
