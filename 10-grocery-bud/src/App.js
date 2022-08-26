@@ -7,7 +7,8 @@ import Alert from "./Alert";
 function App() {
   const [userInput, setUserInput] = useState("");
   const [items, setItems] = useState([]);
-  const [edit, setEdit] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState("");
   const [alert, setAlert] = useState({
     type: "success",
     msg: "",
@@ -36,9 +37,9 @@ function App() {
   };
 
   const editItem = (item) => {
-    setEdit(true);
+    setIsEditing(true);
     setUserInput(item.itemName);
-    console.log(item);
+    setEditId(item.id);
   };
 
   const clearItems = () => {
@@ -52,12 +53,26 @@ function App() {
 
   const removeAlert = () => {
     setAlert((prev) => (prev = { ...prev, showAlert: false }));
+    setUserInput("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!edit) {
+    if (userInput.length === 0) {
+      setAlert(
+        (prev) =>
+          (prev = {
+            ...prev,
+            type: "danger",
+            showAlert: true,
+            msg: "Please Enter Value",
+          })
+      );
+      return;
+    }
+
+    if (!isEditing) {
       console.log("testing");
       const idKey = uuid();
 
@@ -77,8 +92,17 @@ function App() {
       );
     }
 
-    if (edit) {
+    if (isEditing && userInput) {
       console.log("edited");
+
+      setItems(
+        items.map((item) => {
+          if (item.id === editId) {
+            return { ...item, itemName: userInput };
+          }
+          return item;
+        })
+      );
 
       setAlert(
         (prev) =>
@@ -89,6 +113,8 @@ function App() {
             msg: "Item Updated",
           })
       );
+      setIsEditing(false);
+      setUserInput("");
     }
   };
 
@@ -113,11 +139,13 @@ function App() {
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
           />
+
           <button type="submit" className="submit-btn">
-            {edit ? "Edit" : "Submit"}
+            {isEditing ? "Edit" : "Submit"}
           </button>
         </div>
       </form>
+
       {items.length > 0 && (
         <List
           items={items}
